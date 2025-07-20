@@ -1,22 +1,35 @@
 {
 	"name": "pf2e dev environment",
 	"image": "mcr.microsoft.com/devcontainers/typescript-node:1-22-bookworm",
+	
+	"features": {
+		"ghcr.io/devcontainers/features/git-lfs:1": {}
+	},
 
-	// Features to add to the dev container. More info: https://containers.dev/features.
-	// "features": {},
-
-	// Use 'forwardPorts' to make a list of ports inside the container available locally.
-	// "forwardPorts": [],
-
-	// Use 'postCreateCommand' to run commands after the container is created.
 	"postCreateCommand": "./.devcontainer/scripts/post-create.sh",
 
-	// Configure tool-specific properties.
 	"customizations": {
 		"vscode": {
 			"extensions": [
-				"timonwong.shellcheck"
+				"timonwong.shellcheck",
+				"antfu.vite"
 			]
+		}
+	},
+
+	"forwardPorts": [4000, 30000, 30001],
+	"portsAttributes": {
+		"4000": {
+			"label": "Vite http dev server",
+			"onAutoForward": "notify"
+		},
+		"30000" :{
+			"label": "Foundry port",
+			"onAutoForward": "notify"
+		},
+		"30001":{
+			"label": "Server port",
+			"onAutoForward": "notify"
 		}
 	}
 }
